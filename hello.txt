@@ -1,4 +1,8 @@
 public void run(){
+
 	System.out.println("hello world!");  master modified
 	System.out.println("second modified with hot-fix");
+	System.out.println("hello world!");
+	System.out.println("second modified with hot-fix") hot-fix modified
+
 }
