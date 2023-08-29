@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script
+	type="text/javascript"
+	src="../js/jquery-3.5.1.js"
+></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#submit_register').click(function() {
+			var username = $('#username').val();
+			var password = $('#password').val();
+			var email = $('#email').val();
+
+			if (username == null || username == '' || username.length == 0) {
+				alert("用户名不能为空！");
+				return;
+			}
+
+			if (password == null || password == '' || password.length == 0) {
+				alert("密码不能为空！");
+				return;
+			}
+
+			if (email == null || email == '' || email.length == 0) {
+				alert("邮箱不能为空！");
+				return;
+			}
+
+			$.ajax({
+				url : "../user/register",
+				data : {
+					username : username,
+					password : password,
+					email : email
+				},
+				dataType : 'text',
+				success : function(res) {
+					alert(res); //在console中查看数据
+					$('#username').val("");
+					$('#password').val("");
+				 	$('#email').val("");
+				},
+				error : function() {
+					alert('failed!');
+				},
+			})
+
+		})
+
+	});
+</script>
+</head>
+<body>
+
+	<div align="center">
+		<form onsubmit="return false">
+			用户名: <input
+				type="text"
+				id="username"
+			/><br> 密码: <input
+				type="password"
+				id="password"
+			/><br> 邮箱:<input
+				type="email"
+				id="email"
+			/><br>
+			<button id="submit_register">提交</button>
+			<input type="reset">
+		</form>
+	</div>
+
+
+</body>
+</html>
