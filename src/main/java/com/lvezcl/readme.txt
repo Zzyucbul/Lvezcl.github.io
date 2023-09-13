@@ -1,4 +1,0 @@
-编译后的文件会在target中
-默认的web.xml文件会自己加载到target/classes下
-但由于这是我们的自己写的servlet
-所以我们自己手动复制一份到target/classes，会报红但没有影响
