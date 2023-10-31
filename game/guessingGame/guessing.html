@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>猜拳游戏</title>
+    <link rel="stylesheet" href="css/css1.css">
+
+    <script type="text/javascript" src="js.js"></script>
+</head>
+<body>
+
+        <table>
+            <tr>
+                <td id="col1">
+                    <p>你</p>
+                    <img src="pic/zb.jpg" id="you">
+                </td>
+                <td id="col2">
+                    <p id="vs">vs</p>
+                </td>
+                <td id="col3"><p>电脑</p>
+                    <img src="pic/zb.jpg" id="computer" >
+                </td>
+
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <p id="result">Are you ready?</p></td>
+            </tr>
+            <tr>
+                <td >
+                    <p>你选择了：</p>
+                    <img src="pic/zb.jpg" id="current">
+                </td>
+                <td>  <p id="choice">Choice</p></td>
+                <td><p>请选择出拳</p>
+                    <select id="select" onchange="dochange()">
+                         /*onchange 在元素值改变时触发。
+                         onchange 属性适用于：<input>、textarea以及 select 元素*/
+                        <option value="0">请选择</option>
+                        <option value="1">石头</option>
+                        <option value="2">剪刀</option>
+                        <option value="3">布</option>
+
+                    </select>
+                    <input type="submit" value="确认出拳" onclick="doConfirm()">
+                </td>
+
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <p>
+                        总数： <span id="total">0</span>
+                        胜利：<span id="win">0</span>
+                        失败：<span id="lose">0</span>
+                        平局：<span id="same">0</span>
+                    </p>
+                </td>
+
+
+            </tr>
+
+        </table>
+
+
+
+</body>
+</html>
