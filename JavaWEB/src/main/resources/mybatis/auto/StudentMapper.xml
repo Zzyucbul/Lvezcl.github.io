@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fc.v2.mapper.auto.StudentMapper">
+  <resultMap id="BaseResultMap" type="com.fc.v2.model.auto.Student">
+    <result column="student_id" jdbcType="VARCHAR" property="studentId" />
+    <result column="student_name" jdbcType="VARCHAR" property="studentName" />
+    <result column="student_idcard" jdbcType="VARCHAR" property="studentIdcard" />
+    <result column="sex" jdbcType="OTHER" property="sex" />
+    <result column="ethnic" jdbcType="VARCHAR" property="ethnic" />
+    <result column="origin" jdbcType="VARCHAR" property="origin" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="graduate_name" jdbcType="VARCHAR" property="graduateName" />
+    <result column="political" jdbcType="VARCHAR" property="political" />
+    <result column="phone_number" jdbcType="VARCHAR" property="phoneNumber" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="class_code" jdbcType="VARCHAR" property="classCode" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+  
+	  	  	      	student_id,
+       	  	      	student_name,
+       	  	      	student_idcard,
+       	  	      	sex,
+       	  	      	ethnic,
+       	  	      	origin,
+       	  	      	address,
+       	  	      	graduate_name,
+       	  	      	political,
+       	  	      	phone_number,
+       	  	      	password,
+       	  	    	  	class_code
+       	  	
+  </sql>
+  
+  <select id="selectByExample" parameterType="com.fc.v2.model.auto.StudentExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_student
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_student
+    where student_id = #{studentId,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_student
+    where student_id = #{studentId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.fc.v2.model.auto.StudentExample">
+    delete from t_student
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  
+  <insert id="insert" parameterType="com.fc.v2.model.auto.Student">
+    insert into t_student (
+      	  	       student_id,
+       	  	       student_name,
+       	  	       student_idcard,
+       	  	       sex,
+       	  	       ethnic,
+       	  	       origin,
+       	  	       address,
+       	  	       graduate_name,
+       	  	       political,
+       	  	       phone_number,
+       	  	       password,
+       	  	    	  class_code
+       	    )
+    values (
+	  	  	      	#{studentId,jdbcType=VARCHAR},
+       	  	      	#{studentName,jdbcType=VARCHAR},
+       	  	      	#{studentIdcard,jdbcType=VARCHAR},
+       	  	      	#{sex,jdbcType=OTHER},
+       	  	      	#{ethnic,jdbcType=VARCHAR},
+       	  	      	#{origin,jdbcType=VARCHAR},
+       	  	      	#{address,jdbcType=VARCHAR},
+       	  	      	#{graduateName,jdbcType=VARCHAR},
+       	  	      	#{political,jdbcType=VARCHAR},
+       	  	      	#{phoneNumber,jdbcType=VARCHAR},
+       	  	      	#{password,jdbcType=VARCHAR},
+       	  	    	  #{classCode,jdbcType=VARCHAR}
+       	    )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.fc.v2.model.auto.Student">
+    insert into t_student
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+          
+      <if test="studentId != null">
+        student_id,
+      </if>
+         
+      <if test="studentName != null">
+        student_name,
+      </if>
+         
+      <if test="studentIdcard != null">
+        student_idcard,
+      </if>
+         
+      <if test="sex != null">
+        sex,
+      </if>
+         
+      <if test="ethnic != null">
+        ethnic,
+      </if>
+         
+      <if test="origin != null">
+        origin,
+      </if>
+         
+      <if test="address != null">
+        address,
+      </if>
+         
+      <if test="graduateName != null">
+        graduate_name,
+      </if>
+         
+      <if test="political != null">
+        political,
+      </if>
+         
+      <if test="phoneNumber != null">
+        phone_number,
+      </if>
+         
+      <if test="password != null">
+        password,
+      </if>
+         
+      <if test="classCode != null">
+        class_code,
+      </if>
+         </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+          <if test="studentId != null">
+        #{studentId,jdbcType=VARCHAR},
+      </if>
+          <if test="studentName != null">
+        #{studentName,jdbcType=VARCHAR},
+      </if>
+          <if test="studentIdcard != null">
+        #{studentIdcard,jdbcType=VARCHAR},
+      </if>
+          <if test="sex != null">
+        #{sex,jdbcType=OTHER},
+      </if>
+          <if test="ethnic != null">
+        #{ethnic,jdbcType=VARCHAR},
+      </if>
+          <if test="origin != null">
+        #{origin,jdbcType=VARCHAR},
+      </if>
+          <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+          <if test="graduateName != null">
+        #{graduateName,jdbcType=VARCHAR},
+      </if>
+          <if test="political != null">
+        #{political,jdbcType=VARCHAR},
+      </if>
+          <if test="phoneNumber != null">
+        #{phoneNumber,jdbcType=VARCHAR},
+      </if>
+          <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+          <if test="classCode != null">
+        #{classCode,jdbcType=VARCHAR},
+      </if>
+        </trim>
+  </insert>
+  
+  <select id="countByExample" parameterType="com.fc.v2.model.auto.StudentExample" resultType="java.lang.Long">
+    select count(*) from t_student
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_student
+    <set>
+          <if test="record.studentId != null">
+        student_id = #{record.studentId,jdbcType=VARCHAR},
+      </if>
+          <if test="record.studentName != null">
+        student_name = #{record.studentName,jdbcType=VARCHAR},
+      </if>
+          <if test="record.studentIdcard != null">
+        student_idcard = #{record.studentIdcard,jdbcType=VARCHAR},
+      </if>
+          <if test="record.sex != null">
+        sex = #{record.sex,jdbcType=OTHER},
+      </if>
+          <if test="record.ethnic != null">
+        ethnic = #{record.ethnic,jdbcType=VARCHAR},
+      </if>
+          <if test="record.origin != null">
+        origin = #{record.origin,jdbcType=VARCHAR},
+      </if>
+          <if test="record.address != null">
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+          <if test="record.graduateName != null">
+        graduate_name = #{record.graduateName,jdbcType=VARCHAR},
+      </if>
+          <if test="record.political != null">
+        political = #{record.political,jdbcType=VARCHAR},
+      </if>
+          <if test="record.phoneNumber != null">
+        phone_number = #{record.phoneNumber,jdbcType=VARCHAR},
+      </if>
+          <if test="record.password != null">
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+          <if test="record.classCode != null">
+        class_code = #{record.classCode,jdbcType=VARCHAR},
+      </if>
+         
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  
+  
+  <update id="updateByExample" parameterType="map">
+    update t_student
+    set
+            	     	 
+    	 student_id = #{record.studentId,jdbcType=VARCHAR},
+    	         	     	 
+    	 student_name = #{record.studentName,jdbcType=VARCHAR},
+    	         	     	 
+    	 student_idcard = #{record.studentIdcard,jdbcType=VARCHAR},
+    	         	     	 
+    	 sex = #{record.sex,jdbcType=OTHER},
+    	         	     	 
+    	 ethnic = #{record.ethnic,jdbcType=VARCHAR},
+    	         	     	 
+    	 origin = #{record.origin,jdbcType=VARCHAR},
+    	         	     	 
+    	 address = #{record.address,jdbcType=VARCHAR},
+    	         	     	 
+    	 graduate_name = #{record.graduateName,jdbcType=VARCHAR},
+    	         	     	 
+    	 political = #{record.political,jdbcType=VARCHAR},
+    	         	     	 
+    	 phone_number = #{record.phoneNumber,jdbcType=VARCHAR},
+    	         	     	 
+    	 password = #{record.password,jdbcType=VARCHAR},
+    	         	     	 
+    	 class_code = #{record.classCode,jdbcType=VARCHAR}
+    	         
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  
+  
+      <update id="updateByPrimaryKeySelective" parameterType="com.fc.v2.model.auto.Student">
+    update t_student
+    <set>
+                          
+      <if test="studentName != null">
+        student_name = #{studentName,jdbcType=VARCHAR},
+      </if>
+                      
+      <if test="studentIdcard != null">
+        student_idcard = #{studentIdcard,jdbcType=VARCHAR},
+      </if>
+                      
+      <if test="sex != null">
+        sex = #{sex,jdbcType=OTHER},
+      </if>
+                      
+      <if test="ethnic != null">
+        ethnic = #{ethnic,jdbcType=VARCHAR},
+      </if>
+                      
+      <if test="origin != null">
+        origin = #{origin,jdbcType=VARCHAR},
+      </if>
+                      
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+                      
+      <if test="graduateName != null">
+        graduate_name = #{graduateName,jdbcType=VARCHAR},
+      </if>
+                      
+      <if test="political != null">
+        political = #{political,jdbcType=VARCHAR},
+      </if>
+                      
+      <if test="phoneNumber != null">
+        phone_number = #{phoneNumber,jdbcType=VARCHAR},
+      </if>
+                      
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+                      
+      <if test="classCode != null">
+        class_code = #{classCode,jdbcType=VARCHAR},
+      </if>
+              </set>
+    
+    where 
+            
+    student_id = #{studentId,jdbcType=VARCHAR}
+                                                                                                  
+  </update>
+
+      	      	   	      	   	      	   	      	   	      	   	      	   	      	   	      	   	      	   	      	   	      	   	      	
+
+  <update id="updateByPrimaryKey" parameterType="com.fc.v2.model.auto.Student">
+    update t_student
+    set 
+    		 		 	  	  
+		student_name = #{studentName,jdbcType=VARCHAR},
+	  	 		 	  	  
+		student_idcard = #{studentIdcard,jdbcType=VARCHAR},
+	  	 		 	  	  
+		sex = #{sex,jdbcType=OTHER},
+	  	 		 	  	  
+		ethnic = #{ethnic,jdbcType=VARCHAR},
+	  	 		 	  	  
+		origin = #{origin,jdbcType=VARCHAR},
+	  	 		 	  	  
+		address = #{address,jdbcType=VARCHAR},
+	  	 		 	  	  
+		graduate_name = #{graduateName,jdbcType=VARCHAR},
+	  	 		 	  	  
+		political = #{political,jdbcType=VARCHAR},
+	  	 		 	  	  
+		phone_number = #{phoneNumber,jdbcType=VARCHAR},
+	  	 		 	  	  
+		password = #{password,jdbcType=VARCHAR},
+	  	 		 	  		
+		class_code = #{classCode,jdbcType=VARCHAR}
+	  	 		
+    where 
+            
+    student_id = #{studentId,jdbcType=VARCHAR}
+                                                                                                    
+  </update>
+  
+                                                                
+</mapper>

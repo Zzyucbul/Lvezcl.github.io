@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fc.v2.mapper.auto.DepartMapper">
+  <resultMap id="BaseResultMap" type="com.fc.v2.model.auto.Depart">
+    <result column="depart_id" jdbcType="VARCHAR" property="departId" />
+    <result column="depart_name" jdbcType="VARCHAR" property="departName" />
+    <result column="school_id" jdbcType="VARCHAR" property="schoolId" />
+
+  </resultMap>
+
+  <resultMap id="BaseResultMap2" type="com.fc.v2.model.auto.School">
+    <result column="school_id" jdbcType="VARCHAR" property="schoolId" />
+    <result column="school_name" jdbcType="VARCHAR" property="schoolName" />
+  </resultMap>
+  
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+  
+	  	  	      	depart_id,
+       	  	      	depart_name,
+       	  	    	  	school_id
+       	  	
+  </sql>
+  
+  <select id="selectByExample" parameterType="com.fc.v2.model.auto.DepartExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_depart
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_depart
+    where depart_id = #{departId,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_depart
+    where depart_id = #{departId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.fc.v2.model.auto.DepartExample">
+    delete from t_depart
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  
+  <insert id="insert" parameterType="com.fc.v2.model.auto.Depart">
+    insert into t_depart (
+      	  	       depart_id,
+       	  	       depart_name,
+       	  	    	  school_id
+       	    )
+    values (
+	  	  	      	#{departId,jdbcType=VARCHAR},
+       	  	      	#{departName,jdbcType=VARCHAR},
+       	  	    	  #{schoolId,jdbcType=VARCHAR}
+       	    )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.fc.v2.model.auto.Depart">
+    insert into t_depart
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+          
+      <if test="departId != null">
+        depart_id,
+      </if>
+         
+      <if test="departName != null">
+        depart_name,
+      </if>
+         
+      <if test="schoolId != null">
+        school_id,
+      </if>
+         </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+          <if test="departId != null">
+        #{departId,jdbcType=VARCHAR},
+      </if>
+          <if test="departName != null">
+        #{departName,jdbcType=VARCHAR},
+      </if>
+          <if test="schoolId != null">
+        #{schoolId,jdbcType=VARCHAR},
+      </if>
+        </trim>
+  </insert>
+  
+  <select id="countByExample" parameterType="com.fc.v2.model.auto.DepartExample" resultType="java.lang.Long">
+    select count(*) from t_depart
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_depart
+    <set>
+          <if test="record.departId != null">
+        depart_id = #{record.departId,jdbcType=VARCHAR},
+      </if>
+          <if test="record.departName != null">
+        depart_name = #{record.departName,jdbcType=VARCHAR},
+      </if>
+          <if test="record.schoolId != null">
+        school_id = #{record.schoolId,jdbcType=VARCHAR},
+      </if>
+         
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  
+  
+  <update id="updateByExample" parameterType="map">
+    update t_depart
+    set
+            	     	 
+    	 depart_id = #{record.departId,jdbcType=VARCHAR},
+    	         	     	 
+    	 depart_name = #{record.departName,jdbcType=VARCHAR},
+    	         	     	 
+    	 school_id = #{record.schoolId,jdbcType=VARCHAR}
+    	         
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  
+  
+      <update id="updateByPrimaryKeySelective" parameterType="com.fc.v2.model.auto.Depart">
+    update t_depart
+    <set>
+                          
+      <if test="departName != null">
+        depart_name = #{departName,jdbcType=VARCHAR},
+      </if>
+                      
+      <if test="schoolId != null">
+        school_id = #{schoolId,jdbcType=VARCHAR},
+      </if>
+              </set>
+    
+    where 
+            
+    depart_id = #{departId,jdbcType=VARCHAR}
+                          
+  </update>
+
+      	      	   	      	   	      	
+
+  <update id="updateByPrimaryKey" parameterType="com.fc.v2.model.auto.Depart">
+    update t_depart
+    set 
+    		 		 	  	  
+		depart_name = #{departName,jdbcType=VARCHAR},
+	  	 		 	  		
+		school_id = #{schoolId,jdbcType=VARCHAR}
+	  	 		
+    where 
+            
+    depart_id = #{departId,jdbcType=VARCHAR}
+                            
+  </update>
+
+
+
+
+</mapper>
